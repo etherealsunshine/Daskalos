@@ -40,27 +40,27 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Self Help',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22.0,
-              ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Self Help',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: false,
+          elevation: 2.0,
         ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

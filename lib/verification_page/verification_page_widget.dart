@@ -42,23 +42,23 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-      appBar: AppBar(
-        backgroundColor: Color(0xFFB1B1B1),
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Enter Pin Code Below',
-          style: FlutterFlowTheme.of(context).bodyMedium,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        appBar: AppBar(
+          backgroundColor: Color(0xFFB1B1B1),
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Enter Pin Code Below',
+            style: FlutterFlowTheme.of(context).bodyMedium,
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 0.0,
         ),
-        actions: [],
-        centerTitle: true,
-        elevation: 0.0,
-      ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-        child: Column(
+        body: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

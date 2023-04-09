@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 
 class DaskalosV1FirebaseUser {
   DaskalosV1FirebaseUser(this.user);
@@ -18,6 +20,9 @@ Stream<DaskalosV1FirebaseUser> daskalosV1FirebaseUserStream() =>
         .map<DaskalosV1FirebaseUser>(
       (user) {
         currentUser = DaskalosV1FirebaseUser(user);
+        if (!kIsWeb) {
+          FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
+        }
         return currentUser!;
       },
     );

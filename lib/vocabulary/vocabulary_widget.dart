@@ -39,26 +39,26 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Activities',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-              ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Activities',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                ),
+          ),
+          actions: [],
+          centerTitle: false,
+          elevation: 2.0,
         ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

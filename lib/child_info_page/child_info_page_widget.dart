@@ -57,41 +57,41 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-      appBar: AppBar(
-        backgroundColor: Color(0xFFCECECE),
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30.0,
-          borderWidth: 1.0,
-          buttonSize: 60.0,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30.0,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        appBar: AppBar(
+          backgroundColor: Color(0xFFCECECE),
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
           ),
-          onPressed: () async {
-            context.pop();
-          },
+          title: Text(
+            'Previous Remarks',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2.0,
         ),
-        title: Text(
-          'Previous Remarks',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22.0,
-              ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
             child: Column(

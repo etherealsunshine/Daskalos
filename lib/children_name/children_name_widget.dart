@@ -42,41 +42,41 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).overlay0,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Kid Information',
-          style: FlutterFlowTheme.of(context).headlineMedium,
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.add_circle_outline_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                context.safePop();
-              },
-            ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).overlay0,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Kid Information',
+            style: FlutterFlowTheme.of(context).headlineMedium,
           ),
-        ],
-        centerTitle: false,
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          actions: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+              child: FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.add_circle_outline_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 30.0,
+                ),
+                onPressed: () async {
+                  context.safePop();
+                },
+              ),
+            ),
+          ],
+          centerTitle: false,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,

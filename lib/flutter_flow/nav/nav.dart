@@ -136,7 +136,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Settings',
           path: '/settings',
-          builder: (context, params) => SettingsWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'Settings')
+              : SettingsWidget(),
         ),
         FFRoute(
           name: 'UpdateChildProgress',

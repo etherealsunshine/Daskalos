@@ -69,27 +69,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         final homePageChildrenRecord = homePageChildrenRecordList.isNotEmpty
             ? homePageChildrenRecordList.first
             : null;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryText,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primary,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'HomePage',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    fontSize: 22.0,
-                  ),
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryText,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primary,
+              automaticallyImplyLeading: false,
+              title: Text(
+                'HomePage',
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.of(context).primaryBtnText,
+                      fontSize: 22.0,
+                    ),
+              ),
+              actions: [],
+              centerTitle: false,
+              elevation: 2.0,
             ),
-            actions: [],
-            centerTitle: false,
-            elevation: 2.0,
-          ),
-          body: SafeArea(
-            child: GestureDetector(
-              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            body: SafeArea(
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                 child: SingleChildScrollView(
