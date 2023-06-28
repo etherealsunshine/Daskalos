@@ -11,6 +11,7 @@ import 'package:swipeable_card_stack/swipeable_card_stack.dart';
 class LetterUModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
+  final unfocusNode = FocusNode();
   // State field(s) for SwipeableStack widget.
   late SwipeableCardSectionController swipeableStackController;
 
@@ -20,8 +21,11 @@ class LetterUModel extends FlutterFlowModel {
     swipeableStackController = SwipeableCardSectionController();
   }
 
-  void dispose() {}
+  void dispose() {
+    unfocusNode.dispose();
+  }
+
+  /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
 }

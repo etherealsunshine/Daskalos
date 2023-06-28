@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -50,12 +50,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).primary,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           );
@@ -100,6 +103,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             elevation: 2.0,
           ),
           body: SafeArea(
+            top: true,
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(24.0, 24.0, 24.0, 24.0),
               child: Column(
@@ -251,12 +255,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       child: FFButtonWidget(
                         onPressed: () async {
                           GoRouter.of(context).prepareAuthEvent();
-                          await signOut();
+                          await authManager.signOut();
                           GoRouter.of(context).clearRedirectLocation();
 
-                          await deleteUser(context);
+                          await authManager.deleteUser(context);
 
-                          context.goNamedAuth('SignUpPage', mounted);
+                          context.goNamedAuth('SignUpPage', context.mounted);
                         },
                         text: 'Delete User',
                         options: FFButtonOptions(

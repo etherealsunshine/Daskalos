@@ -18,7 +18,6 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   late SelfHelpModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -32,7 +31,6 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -41,7 +39,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -61,6 +59,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -111,7 +110,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.network(
-                                    listViewSelfHelpRecord.image!,
+                                    listViewSelfHelpRecord.image,
                                     width: double.infinity,
                                     height: 150.0,
                                     fit: BoxFit.cover,
@@ -120,7 +119,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 10.0),
                                     child: Text(
-                                      listViewSelfHelpRecord.name!,
+                                      listViewSelfHelpRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(

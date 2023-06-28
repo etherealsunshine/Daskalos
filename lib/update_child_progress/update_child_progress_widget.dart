@@ -49,12 +49,15 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).primary,
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           );
@@ -100,6 +103,7 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
             elevation: 10.0,
           ),
           body: SafeArea(
+            top: true,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -120,7 +124,7 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
                   child: Builder(
                     builder: (context) {
                       final progressData = updateChildProgressChildrenRecord!
-                          .childProgressInfo!
+                          .childProgressInfo
                           .toList()
                           .take(5)
                           .toList();
@@ -148,7 +152,7 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
                   ),
                 ),
                 Text(
-                  updateChildProgressChildrenRecord!.name!,
+                  updateChildProgressChildrenRecord!.name,
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Poppins',
                         color: FlutterFlowTheme.of(context).secondaryText,

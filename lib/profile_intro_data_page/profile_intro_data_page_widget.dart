@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -37,6 +37,7 @@ class _ProfileIntroDataPageWidgetState
     _model.textController3 ??= TextEditingController();
     _model.textController4 ??= TextEditingController();
     _model.concernController ??= TextEditingController();
+    _model.textController6 ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -71,6 +72,7 @@ class _ProfileIntroDataPageWidgetState
         elevation: 2.0,
       ),
       body: SafeArea(
+        top: true,
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(12.0, 20.0, 12.0, 12.0),
           child: SingleChildScrollView(
@@ -189,7 +191,7 @@ class _ProfileIntroDataPageWidgetState
                     padding:
                         EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                     child: FlutterFlowDropDown<String>(
-                      controller: _model.dropDownController ??=
+                      controller: _model.dropDownValueController ??=
                           FormFieldController<String>(
                         _model.dropDownValue ??= 'Disorder',
                       ),
@@ -199,7 +201,8 @@ class _ProfileIntroDataPageWidgetState
                         'Dyslexia',
                         'Down Syndrome',
                         'Cerebral Palsy',
-                        'Disorder'
+                        'Disorder',
+                        'Not Diagnosed'
                       ],
                       onChanged: (val) =>
                           setState(() => _model.dropDownValue = val),
@@ -441,7 +444,7 @@ class _ProfileIntroDataPageWidgetState
                                   context: context,
                                   initialDate: getCurrentTimestamp,
                                   firstDate: DateTime(1900),
-                                  lastDate: DateTime(2050),
+                                  lastDate: getCurrentTimestamp,
                                 );
 
                                 if (_datePickedDate != null) {
@@ -537,6 +540,71 @@ class _ProfileIntroDataPageWidgetState
                     ),
                   ),
                 ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 16.0, 16.0),
+                  child: Container(
+                    width: double.infinity,
+                    height: 70.0,
+                    decoration: BoxDecoration(
+                      color: Color(0x00FFFFFF),
+                      borderRadius: BorderRadius.circular(4.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).secondaryText,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Form(
+                      key: _model.formKey,
+                      autovalidateMode: AutovalidateMode.always,
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                        child: TextFormField(
+                          controller: _model.textController6,
+                          autofocus: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Centre Code',
+                            labelStyle: FlutterFlowTheme.of(context).titleSmall,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodySmall,
+                          validator: _model.textController6Validator
+                              .asValidator(context),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 Align(
                   alignment: AlignmentDirectional(0.0, 0.05),
                   child: Padding(
@@ -544,22 +612,24 @@ class _ProfileIntroDataPageWidgetState
                         EdgeInsetsDirectional.fromSTEB(48.0, 48.0, 48.0, 48.0),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        final childrenCreateData = createChildrenRecordData(
-                          name: _model.yourNameController.text,
-                          age: _model.cityController.text,
-                          disorder: _model.dropDownValue,
-                          parentName: _model.textController3.text,
-                          contactNo: _model.textController4.text,
-                          isTeacher: _model.checkboxValue,
-                          concern: _model.concernController.text,
-                          dob: _model.datePicked,
-                        );
                         await ChildrenRecord.collection
                             .doc()
-                            .set(childrenCreateData);
+                            .set(createChildrenRecordData(
+                              name: _model.yourNameController.text,
+                              age: _model.cityController.text,
+                              disorder: _model.dropDownValue,
+                              parentName: _model.textController3.text,
+                              contactNo: _model.textController4.text,
+                              isTeacher: _model.checkboxValue,
+                              concern: _model.concernController.text,
+                              dob: _model.datePicked,
+                              code: int.tryParse(_model.textController6.text),
+                            ));
                         setState(() {
                           FFAppState().name = _model.yourNameController.text;
                           FFAppState().IsATeacher = _model.checkboxValue!;
+                          FFAppState().centrecode =
+                              int.parse(_model.textController6.text);
                         });
 
                         context.pushNamed(

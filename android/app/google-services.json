@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "594686160777-k5vlehv7ubvq204fhlb1nk5goqjeiel6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.daskalosv1",
+            "certificate_hash": "524e6222c78b22b074ddc89204e39112f26af592"
+          }
+        },
+        {
           "client_id": "594686160777-vb5prln97mrtk18jq6ib26v5pakd5u72.apps.googleusercontent.com",
           "client_type": 3
         }

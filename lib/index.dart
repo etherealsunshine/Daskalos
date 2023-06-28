@@ -19,3 +19,4 @@ export '/letter_o/letter_o_widget.dart' show LetterOWidget;
 export '/letter_u/letter_u_widget.dart' show LetterUWidget;
 export '/letter_i/letter_i_widget.dart' show LetterIWidget;
 export '/communication/communication_widget.dart' show CommunicationWidget;
+export '/redo/redo_widget.dart' show RedoWidget;

@@ -1,60 +1,77 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'letter_o_record.g.dart';
+class LetterORecord extends FirestoreRecord {
+  LetterORecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class LetterORecord
-    implements Built<LetterORecord, LetterORecordBuilder> {
-  static Serializer<LetterORecord> get serializer => _$letterORecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "img_link" field.
+  String? _imgLink;
+  String get imgLink => _imgLink ?? '';
+  bool hasImgLink() => _imgLink != null;
 
-  @BuiltValueField(wireName: 'img_link')
-  String? get imgLink;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(LetterORecordBuilder builder) => builder
-    ..name = ''
-    ..imgLink = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _imgLink = snapshotData['img_link'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('letter_O');
 
-  static Stream<LetterORecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<LetterORecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => LetterORecord.fromSnapshot(s));
 
-  static Future<LetterORecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<LetterORecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => LetterORecord.fromSnapshot(s));
 
-  LetterORecord._();
-  factory LetterORecord([void Function(LetterORecordBuilder) updates]) =
-      _$LetterORecord;
+  static LetterORecord fromSnapshot(DocumentSnapshot snapshot) =>
+      LetterORecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static LetterORecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      LetterORecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'LetterORecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is LetterORecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createLetterORecordData({
   String? name,
   String? imgLink,
 }) {
-  final firestoreData = serializers.toFirestore(
-    LetterORecord.serializer,
-    LetterORecord(
-      (l) => l
-        ..name = name
-        ..imgLink = imgLink,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'img_link': imgLink,
+    }.withoutNulls,
   );
 
   return firestoreData;

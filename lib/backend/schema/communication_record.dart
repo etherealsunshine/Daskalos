@@ -1,62 +1,77 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'communication_record.g.dart';
+class CommunicationRecord extends FirestoreRecord {
+  CommunicationRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class CommunicationRecord
-    implements Built<CommunicationRecord, CommunicationRecordBuilder> {
-  static Serializer<CommunicationRecord> get serializer =>
-      _$communicationRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "img_link" field.
+  String? _imgLink;
+  String get imgLink => _imgLink ?? '';
+  bool hasImgLink() => _imgLink != null;
 
-  @BuiltValueField(wireName: 'img_link')
-  String? get imgLink;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
-
-  static void _initializeBuilder(CommunicationRecordBuilder builder) => builder
-    ..name = ''
-    ..imgLink = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _imgLink = snapshotData['img_link'] as String?;
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('Communication');
 
-  static Stream<CommunicationRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<CommunicationRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => CommunicationRecord.fromSnapshot(s));
 
   static Future<CommunicationRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
+      ref.get().then((s) => CommunicationRecord.fromSnapshot(s));
 
-  CommunicationRecord._();
-  factory CommunicationRecord(
-          [void Function(CommunicationRecordBuilder) updates]) =
-      _$CommunicationRecord;
+  static CommunicationRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      CommunicationRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static CommunicationRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      CommunicationRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'CommunicationRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is CommunicationRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createCommunicationRecordData({
   String? name,
   String? imgLink,
 }) {
-  final firestoreData = serializers.toFirestore(
-    CommunicationRecord.serializer,
-    CommunicationRecord(
-      (c) => c
-        ..name = name
-        ..imgLink = imgLink,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'img_link': imgLink,
+    }.withoutNulls,
   );
 
   return firestoreData;

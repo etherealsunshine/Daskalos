@@ -21,7 +21,6 @@ class _LetterUWidgetState extends State<LetterUWidget> {
   late LetterUModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -35,7 +34,6 @@ class _LetterUWidgetState extends State<LetterUWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -44,7 +42,7 @@ class _LetterUWidgetState extends State<LetterUWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryText,
@@ -78,6 +76,7 @@ class _LetterUWidgetState extends State<LetterUWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -140,7 +139,7 @@ class _LetterUWidgetState extends State<LetterUWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 8.0, 0.0, 0.0),
                                 child: Text(
-                                  swipeableStackLetterURecord.name!,
+                                  swipeableStackLetterURecord.name,
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(

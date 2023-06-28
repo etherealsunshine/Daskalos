@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -20,7 +20,6 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
   late VerificationPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,7 +33,6 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -43,7 +41,7 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryText,
@@ -87,6 +85,7 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                     child: PinCodeTextField(
+                      autoDisposeControllers: false,
                       appContext: context,
                       length: 6,
                       textStyle:
@@ -97,6 +96,8 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       enableActiveFill: false,
                       autoFocus: true,
+                      enablePinAutofill: true,
+                      errorTextSpace: 16.0,
                       showCursor: true,
                       cursorColor: FlutterFlowTheme.of(context).primary,
                       obscureText: false,
@@ -119,7 +120,10 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                             FlutterFlowTheme.of(context).secondaryText,
                       ),
                       controller: _model.pinCodeController,
-                      onChanged: (_) => {},
+                      onChanged: (_) {},
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: _model.pinCodeControllerValidator
+                          .asValidator(context),
                     ),
                   ),
                 ],
@@ -139,7 +143,7 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                     );
                     return;
                   }
-                  final phoneVerifiedUser = await verifySmsCode(
+                  final phoneVerifiedUser = await authManager.verifySmsCode(
                     context: context,
                     smsCode: smsCodeVal,
                   );
@@ -152,7 +156,7 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                   }
                   context.pushNamedAuth(
                     'ProfileIntroDataPage',
-                    mounted,
+                    context.mounted,
                     extra: <String, dynamic>{
                       kTransitionInfoKey: TransitionInfo(
                         hasTransition: true,

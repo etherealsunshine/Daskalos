@@ -17,7 +17,6 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
   late VocabularyModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -31,7 +30,6 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -40,7 +38,7 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -59,6 +57,7 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -75,6 +74,10 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             12.0, 12.0, 12.0, 12.0),
                         child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () async {
                             context.pushNamed(
                               'LettersList',
@@ -128,6 +131,10 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             12.0, 12.0, 12.0, 12.0),
                         child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () async {
                             context.pushNamed(
                               'SelfHelp',
@@ -181,6 +188,10 @@ class _VocabularyWidgetState extends State<VocabularyWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             12.0, 12.0, 12.0, 12.0),
                         child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () async {
                             context.pushNamed(
                               'communication',

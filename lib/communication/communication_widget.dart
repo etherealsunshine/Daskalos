@@ -19,7 +19,6 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
   late CommunicationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -33,7 +32,6 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -42,7 +40,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0x00FFFFFF),
@@ -64,7 +62,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
             },
           ),
           title: Text(
-            'Page Title',
+            'Vocabulary',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -76,6 +74,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -126,7 +125,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.network(
-                                    listViewCommunicationRecord.imgLink!,
+                                    listViewCommunicationRecord.imgLink,
                                     width: double.infinity,
                                     height: 150.0,
                                     fit: BoxFit.cover,
@@ -135,7 +134,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 10.0),
                                     child: Text(
-                                      listViewCommunicationRecord.name!,
+                                      listViewCommunicationRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(

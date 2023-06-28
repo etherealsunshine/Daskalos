@@ -9,6 +9,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "code",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "disorder",
           "order": "ASCENDING"
         }

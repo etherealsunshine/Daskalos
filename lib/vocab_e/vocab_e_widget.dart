@@ -1,8 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_swipeable_stack.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,6 @@ class _VocabEWidgetState extends State<VocabEWidget> {
   late VocabEModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -35,7 +36,6 @@ class _VocabEWidgetState extends State<VocabEWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -44,7 +44,7 @@ class _VocabEWidgetState extends State<VocabEWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -78,6 +78,7 @@ class _VocabEWidgetState extends State<VocabEWidget> {
           elevation: 2.0,
         ),
         body: SafeArea(
+          top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -110,7 +111,17 @@ class _VocabEWidgetState extends State<VocabEWidget> {
                       middleCardWidthFraction: 0.85,
                       bottomCardWidthFraction: 0.8,
                       onSwipeFn: (index) {},
-                      onLeftSwipe: (index) {},
+                      onLeftSwipe: (index) async {
+                        final swipeableStackLetterERecord =
+                            swipeableStackLetterERecordList[index];
+
+                        await MistakesRecord.collection
+                            .doc()
+                            .set(createMistakesRecordData(
+                              name: swipeableStackLetterERecord.name,
+                              imgLink: swipeableStackLetterERecord.imgLink,
+                            ));
+                      },
                       onRightSwipe: (index) {},
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
@@ -130,7 +141,7 @@ class _VocabEWidgetState extends State<VocabEWidget> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Image.network(
-                                swipeableStackLetterERecord.imgLink!,
+                                swipeableStackLetterERecord.imgLink,
                                 width: double.infinity,
                                 height:
                                     MediaQuery.of(context).size.height * 0.55,
@@ -140,7 +151,7 @@ class _VocabEWidgetState extends State<VocabEWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     8.0, 8.0, 0.0, 0.0),
                                 child: Text(
-                                  swipeableStackLetterERecord.name!,
+                                  swipeableStackLetterERecord.name,
                                   style: FlutterFlowTheme.of(context)
                                       .displaySmall
                                       .override(

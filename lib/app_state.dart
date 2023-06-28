@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'backend/backend.dart';
+import '/backend/backend.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -10,14 +10,19 @@ class FFAppState extends ChangeNotifier {
     return _instance;
   }
 
-  FFAppState._internal() {
-    initializePersistedState();
-  }
+  FFAppState._internal();
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
-    _indexReport = prefs.getInt('ff_indexReport') ?? _indexReport;
-    _IsATeacher = prefs.getBool('ff_IsATeacher') ?? _IsATeacher;
+    _safeInit(() {
+      _indexReport = prefs.getInt('ff_indexReport') ?? _indexReport;
+    });
+    _safeInit(() {
+      _IsATeacher = prefs.getBool('ff_IsATeacher') ?? _IsATeacher;
+    });
+    _safeInit(() {
+      _centrecode = prefs.getInt('ff_centrecode') ?? _centrecode;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -46,6 +51,13 @@ class FFAppState extends ChangeNotifier {
     _IsATeacher = _value;
     prefs.setBool('ff_IsATeacher', _value);
   }
+
+  int _centrecode = 0;
+  int get centrecode => _centrecode;
+  set centrecode(int _value) {
+    _centrecode = _value;
+    prefs.setInt('ff_centrecode', _value);
+  }
 }
 
 LatLng? _latLngFromString(String? val) {
@@ -56,4 +68,16 @@ LatLng? _latLngFromString(String? val) {
   final lat = double.parse(split.first);
   final lng = double.parse(split.last);
   return LatLng(lat, lng);
+}
+
+void _safeInit(Function() initializeField) {
+  try {
+    initializeField();
+  } catch (_) {}
+}
+
+Future _safeInitAsync(Function() initializeField) async {
+  try {
+    await initializeField();
+  } catch (_) {}
 }
