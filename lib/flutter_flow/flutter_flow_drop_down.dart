@@ -17,6 +17,7 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
     this.height,
     this.fillColor,
     this.searchHintTextStyle,
+    this.searchCursorColor,
     required this.textStyle,
     required this.elevation,
     required this.borderWidth,
@@ -39,6 +40,7 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
   final double? height;
   final Color? fillColor;
   final TextStyle? searchHintTextStyle;
+  final Color? searchCursorColor;
   final TextStyle textStyle;
   final double elevation;
   final double borderWidth;
@@ -190,6 +192,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
             expands: true,
             maxLines: null,
             controller: _textEditingController,
+            cursorColor: widget.searchCursorColor,
             decoration: InputDecoration(
               isDense: true,
               contentPadding: const EdgeInsets.symmetric(

@@ -20,7 +20,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   late HomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,7 +33,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -51,12 +49,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
-          return Center(
-            child: SizedBox(
-              width: 50.0,
-              height: 50.0,
-              child: CircularProgressIndicator(
-                color: FlutterFlowTheme.of(context).primary,
+          return Scaffold(
+            backgroundColor: FlutterFlowTheme.of(context).primaryText,
+            body: Center(
+              child: SizedBox(
+                width: 50.0,
+                height: 50.0,
+                child: CircularProgressIndicator(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
               ),
             ),
           );
@@ -69,27 +70,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         final homePageChildrenRecord = homePageChildrenRecordList.isNotEmpty
             ? homePageChildrenRecordList.first
             : null;
-        return Scaffold(
-          key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.of(context).primaryText,
-          appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primary,
-            automaticallyImplyLeading: false,
-            title: Text(
-              'HomePage',
-              style: FlutterFlowTheme.of(context).headlineMedium.override(
-                    fontFamily: 'Poppins',
-                    color: FlutterFlowTheme.of(context).primaryBtnText,
-                    fontSize: 22.0,
-                  ),
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+          child: Scaffold(
+            key: scaffoldKey,
+            backgroundColor: FlutterFlowTheme.of(context).primaryText,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.of(context).primary,
+              automaticallyImplyLeading: false,
+              title: Text(
+                'HomePage',
+                style: FlutterFlowTheme.of(context).headlineMedium.override(
+                      fontFamily: 'Poppins',
+                      color: FlutterFlowTheme.of(context).primaryBtnText,
+                      fontSize: 22.0,
+                    ),
+              ),
+              actions: [],
+              centerTitle: false,
+              elevation: 2.0,
             ),
-            actions: [],
-            centerTitle: false,
-            elevation: 2.0,
-          ),
-          body: SafeArea(
-            child: GestureDetector(
-              onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            body: SafeArea(
+              top: true,
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                 child: SingleChildScrollView(
@@ -151,7 +153,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           child: Builder(
                             builder: (context) {
                               final xls = homePageChildrenRecord!
-                                  .childProgressInfo!
+                                  .childProgressInfo
                                   .toList();
                               if (xls.isEmpty) {
                                 return NoDataGivenWidget();

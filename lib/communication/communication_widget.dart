@@ -19,7 +19,6 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
   late CommunicationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -33,7 +32,6 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -41,41 +39,42 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Color(0x00FFFFFF),
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30.0,
-          borderWidth: 1.0,
-          buttonSize: 60.0,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30.0,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Color(0x00FFFFFF),
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
           ),
-          onPressed: () async {
-            context.pop();
-          },
+          title: Text(
+            'Vocabulary',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2.0,
         ),
-        title: Text(
-          'Page Title',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22.0,
-              ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -126,7 +125,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.network(
-                                    listViewCommunicationRecord.imgLink!,
+                                    listViewCommunicationRecord.imgLink,
                                     width: double.infinity,
                                     height: 150.0,
                                     fit: BoxFit.cover,
@@ -135,7 +134,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 10.0),
                                     child: Text(
-                                      listViewCommunicationRecord.name!,
+                                      listViewCommunicationRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(

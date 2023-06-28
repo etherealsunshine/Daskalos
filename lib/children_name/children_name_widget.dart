@@ -20,7 +20,6 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
   late ChildrenNameModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -34,7 +33,6 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -42,41 +40,42 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).overlay0,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Kid Information',
-          style: FlutterFlowTheme.of(context).headlineMedium,
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
-            child: FlutterFlowIconButton(
-              borderColor: Colors.transparent,
-              borderRadius: 30.0,
-              borderWidth: 1.0,
-              buttonSize: 60.0,
-              icon: Icon(
-                Icons.add_circle_outline_rounded,
-                color: FlutterFlowTheme.of(context).secondaryText,
-                size: 30.0,
-              ),
-              onPressed: () async {
-                context.safePop();
-              },
-            ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).overlay0,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Kid Information',
+            style: FlutterFlowTheme.of(context).headlineMedium,
           ),
-        ],
-        centerTitle: false,
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          actions: [
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+              child: FlutterFlowIconButton(
+                borderColor: Colors.transparent,
+                borderRadius: 30.0,
+                borderWidth: 1.0,
+                buttonSize: 60.0,
+                icon: Icon(
+                  Icons.add_circle_outline_rounded,
+                  color: FlutterFlowTheme.of(context).secondaryText,
+                  size: 30.0,
+                ),
+                onPressed: () async {
+                  context.safePop();
+                },
+              ),
+            ),
+          ],
+          centerTitle: false,
+          elevation: 0.0,
+        ),
+        body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -102,6 +101,7 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
                       final Query<Object?> Function(Query<Object?>)
                           queryBuilder = (childrenRecord) => childrenRecord
                               .where('IsTeacher', isEqualTo: false)
+                              .where('code', isEqualTo: FFAppState().centrecode)
                               .orderBy('disorder');
                       if (_model.pagingController != null) {
                         final query = queryBuilder(ChildrenRecord.collection);
@@ -123,6 +123,7 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
                         queryChildrenRecordPage(
                           queryBuilder: (childrenRecord) => childrenRecord
                               .where('IsTeacher', isEqualTo: false)
+                              .where('code', isEqualTo: FFAppState().centrecode)
                               .orderBy('disorder'),
                           nextPageMarker: nextPageMarker,
                           pageSize: 25,
@@ -156,10 +157,14 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
                         final listViewChildrenRecord =
                             _model.pagingController!.itemList![listViewIndex];
                         return InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
                           onTap: () async {
                             context.pushNamed(
                               'ChildInfoPage',
-                              queryParams: {
+                              queryParameters: {
                                 'name': serializeParam(
                                   listViewChildrenRecord.name,
                                   ParamType.String,
@@ -184,7 +189,7 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
                           },
                           child: ListTile(
                             title: Text(
-                              listViewChildrenRecord.name!,
+                              listViewChildrenRecord.name,
                               style: FlutterFlowTheme.of(context)
                                   .headlineSmall
                                   .override(
@@ -194,7 +199,7 @@ class _ChildrenNameWidgetState extends State<ChildrenNameWidget> {
                                   ),
                             ),
                             subtitle: Text(
-                              listViewChildrenRecord.disorder!,
+                              listViewChildrenRecord.disorder,
                               style: FlutterFlowTheme.of(context).titleSmall,
                             ),
                             trailing: Icon(

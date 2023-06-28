@@ -1,4 +1,4 @@
-import '/auth/auth_util.dart';
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -31,7 +31,6 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
   late ChildInfoPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -49,7 +48,6 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -57,41 +55,42 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.of(context).primaryText,
-      appBar: AppBar(
-        backgroundColor: Color(0xFFCECECE),
-        automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30.0,
-          borderWidth: 1.0,
-          buttonSize: 60.0,
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: Colors.white,
-            size: 30.0,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        appBar: AppBar(
+          backgroundColor: Color(0xFFCECECE),
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 60.0,
+            icon: Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
           ),
-          onPressed: () async {
-            context.pop();
-          },
+          title: Text(
+            'Previous Remarks',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: true,
+          elevation: 2.0,
         ),
-        title: Text(
-          'Previous Remarks',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22.0,
-              ),
-        ),
-        actions: [],
-        centerTitle: true,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
+          top: true,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
             child: Column(
@@ -276,12 +275,10 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
                       EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      final childrenUpdateData = {
+                      await widget.childData!.reference.update({
                         'Child_Progress_Info': FieldValue.arrayUnion(
                             [_model.textController3.text]),
-                      };
-                      await widget.childData!.reference
-                          .update(childrenUpdateData);
+                      });
                     },
                     text: 'Update Info',
                     options: FFButtonOptions(
@@ -308,7 +305,7 @@ class _ChildInfoPageWidgetState extends State<ChildInfoPageWidget> {
                 ),
                 Builder(
                   builder: (context) {
-                    final previousdata = widget.childData!.childProgressInfo!
+                    final previousdata = widget.childData!.childProgressInfo
                         .toList()
                         .take(5)
                         .toList();

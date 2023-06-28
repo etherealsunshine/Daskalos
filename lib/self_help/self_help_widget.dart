@@ -18,7 +18,6 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   late SelfHelpModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  final _unfocusNode = FocusNode();
 
   @override
   void initState() {
@@ -32,7 +31,6 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   void dispose() {
     _model.dispose();
 
-    _unfocusNode.dispose();
     super.dispose();
   }
 
@@ -40,27 +38,28 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primary,
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Self Help',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22.0,
-              ),
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primary,
+          automaticallyImplyLeading: false,
+          title: Text(
+            'Self Help',
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+                  fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 22.0,
+                ),
+          ),
+          actions: [],
+          centerTitle: false,
+          elevation: 2.0,
         ),
-        actions: [],
-        centerTitle: false,
-        elevation: 2.0,
-      ),
-      body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+        body: SafeArea(
+          top: true,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -111,7 +110,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Image.network(
-                                    listViewSelfHelpRecord.image!,
+                                    listViewSelfHelpRecord.image,
                                     width: double.infinity,
                                     height: 150.0,
                                     fit: BoxFit.cover,
@@ -120,7 +119,7 @@ class _SelfHelpWidgetState extends State<SelfHelpWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 10.0, 10.0, 10.0),
                                     child: Text(
-                                      listViewSelfHelpRecord.name!,
+                                      listViewSelfHelpRecord.name,
                                       style: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(

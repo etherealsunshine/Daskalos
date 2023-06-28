@@ -1,91 +1,150 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'children_record.g.dart';
+class ChildrenRecord extends FirestoreRecord {
+  ChildrenRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class ChildrenRecord
-    implements Built<ChildrenRecord, ChildrenRecordBuilder> {
-  static Serializer<ChildrenRecord> get serializer =>
-      _$childrenRecordSerializer;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  bool hasName() => _name != null;
 
-  String? get name;
+  // "age" field.
+  String? _age;
+  String get age => _age ?? '';
+  bool hasAge() => _age != null;
 
-  String? get age;
+  // "disorder" field.
+  String? _disorder;
+  String get disorder => _disorder ?? '';
+  bool hasDisorder() => _disorder != null;
 
-  String? get disorder;
+  // "progress" field.
+  String? _progress;
+  String get progress => _progress ?? '';
+  bool hasProgress() => _progress != null;
 
-  String? get progress;
+  // "Therapiesundergoing" field.
+  String? _therapiesundergoing;
+  String get therapiesundergoing => _therapiesundergoing ?? '';
+  bool hasTherapiesundergoing() => _therapiesundergoing != null;
 
-  @BuiltValueField(wireName: 'Therapiesundergoing')
-  String? get therapiesundergoing;
+  // "photo" field.
+  String? _photo;
+  String get photo => _photo ?? '';
+  bool hasPhoto() => _photo != null;
 
-  String? get photo;
+  // "ParentName" field.
+  String? _parentName;
+  String get parentName => _parentName ?? '';
+  bool hasParentName() => _parentName != null;
 
-  @BuiltValueField(wireName: 'ParentName')
-  String? get parentName;
+  // "ContactNo" field.
+  String? _contactNo;
+  String get contactNo => _contactNo ?? '';
+  bool hasContactNo() => _contactNo != null;
 
-  @BuiltValueField(wireName: 'ContactNo')
-  String? get contactNo;
+  // "CounselorName" field.
+  String? _counselorName;
+  String get counselorName => _counselorName ?? '';
+  bool hasCounselorName() => _counselorName != null;
 
-  @BuiltValueField(wireName: 'CounselorName')
-  String? get counselorName;
+  // "IsTeacher" field.
+  bool? _isTeacher;
+  bool get isTeacher => _isTeacher ?? false;
+  bool hasIsTeacher() => _isTeacher != null;
 
-  @BuiltValueField(wireName: 'IsTeacher')
-  bool? get isTeacher;
+  // "Child_Progress_Info" field.
+  List<String>? _childProgressInfo;
+  List<String> get childProgressInfo => _childProgressInfo ?? const [];
+  bool hasChildProgressInfo() => _childProgressInfo != null;
 
-  @BuiltValueField(wireName: 'Child_Progress_Info')
-  BuiltList<String>? get childProgressInfo;
+  // "DOB" field.
+  DateTime? _dob;
+  DateTime? get dob => _dob;
+  bool hasDob() => _dob != null;
 
-  @BuiltValueField(wireName: 'DOB')
-  DateTime? get dob;
+  // "LanguagesUsedAtHome" field.
+  String? _languagesUsedAtHome;
+  String get languagesUsedAtHome => _languagesUsedAtHome ?? '';
+  bool hasLanguagesUsedAtHome() => _languagesUsedAtHome != null;
 
-  @BuiltValueField(wireName: 'LanguagesUsedAtHome')
-  String? get languagesUsedAtHome;
+  // "Concern" field.
+  String? _concern;
+  String get concern => _concern ?? '';
+  bool hasConcern() => _concern != null;
 
-  @BuiltValueField(wireName: 'Concern')
-  String? get concern;
+  // "email" field.
+  String? _email;
+  String get email => _email ?? '';
+  bool hasEmail() => _email != null;
 
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "code" field.
+  int? _code;
+  int get code => _code ?? 0;
+  bool hasCode() => _code != null;
 
-  static void _initializeBuilder(ChildrenRecordBuilder builder) => builder
-    ..name = ''
-    ..age = ''
-    ..disorder = ''
-    ..progress = ''
-    ..therapiesundergoing = ''
-    ..photo = ''
-    ..parentName = ''
-    ..contactNo = ''
-    ..counselorName = ''
-    ..isTeacher = false
-    ..childProgressInfo = ListBuilder()
-    ..languagesUsedAtHome = ''
-    ..concern = '';
+  void _initializeFields() {
+    _name = snapshotData['name'] as String?;
+    _age = snapshotData['age'] as String?;
+    _disorder = snapshotData['disorder'] as String?;
+    _progress = snapshotData['progress'] as String?;
+    _therapiesundergoing = snapshotData['Therapiesundergoing'] as String?;
+    _photo = snapshotData['photo'] as String?;
+    _parentName = snapshotData['ParentName'] as String?;
+    _contactNo = snapshotData['ContactNo'] as String?;
+    _counselorName = snapshotData['CounselorName'] as String?;
+    _isTeacher = snapshotData['IsTeacher'] as bool?;
+    _childProgressInfo = getDataList(snapshotData['Child_Progress_Info']);
+    _dob = snapshotData['DOB'] as DateTime?;
+    _languagesUsedAtHome = snapshotData['LanguagesUsedAtHome'] as String?;
+    _concern = snapshotData['Concern'] as String?;
+    _email = snapshotData['email'] as String?;
+    _code = castToType<int>(snapshotData['code']);
+  }
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('children');
 
-  static Stream<ChildrenRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<ChildrenRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => ChildrenRecord.fromSnapshot(s));
 
-  static Future<ChildrenRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<ChildrenRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => ChildrenRecord.fromSnapshot(s));
 
-  ChildrenRecord._();
-  factory ChildrenRecord([void Function(ChildrenRecordBuilder) updates]) =
-      _$ChildrenRecord;
+  static ChildrenRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      ChildrenRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static ChildrenRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      ChildrenRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'ChildrenRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ChildrenRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createChildrenRecordData({
@@ -102,26 +161,27 @@ Map<String, dynamic> createChildrenRecordData({
   DateTime? dob,
   String? languagesUsedAtHome,
   String? concern,
+  String? email,
+  int? code,
 }) {
-  final firestoreData = serializers.toFirestore(
-    ChildrenRecord.serializer,
-    ChildrenRecord(
-      (c) => c
-        ..name = name
-        ..age = age
-        ..disorder = disorder
-        ..progress = progress
-        ..therapiesundergoing = therapiesundergoing
-        ..photo = photo
-        ..parentName = parentName
-        ..contactNo = contactNo
-        ..counselorName = counselorName
-        ..isTeacher = isTeacher
-        ..childProgressInfo = null
-        ..dob = dob
-        ..languagesUsedAtHome = languagesUsedAtHome
-        ..concern = concern,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'name': name,
+      'age': age,
+      'disorder': disorder,
+      'progress': progress,
+      'Therapiesundergoing': therapiesundergoing,
+      'photo': photo,
+      'ParentName': parentName,
+      'ContactNo': contactNo,
+      'CounselorName': counselorName,
+      'IsTeacher': isTeacher,
+      'DOB': dob,
+      'LanguagesUsedAtHome': languagesUsedAtHome,
+      'Concern': concern,
+      'email': email,
+      'code': code,
+    }.withoutNulls,
   );
 
   return firestoreData;

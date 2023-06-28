@@ -1,29 +1,35 @@
 import 'dart:async';
 
+import '/backend/schema/util/firestore_util.dart';
+import '/backend/schema/util/schema_util.dart';
+
 import 'index.dart';
-import 'serializers.dart';
-import 'package:built_value/built_value.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
-part 'progress_record.g.dart';
+class ProgressRecord extends FirestoreRecord {
+  ProgressRecord._(
+    DocumentReference reference,
+    Map<String, dynamic> data,
+  ) : super(reference, data) {
+    _initializeFields();
+  }
 
-abstract class ProgressRecord
-    implements Built<ProgressRecord, ProgressRecordBuilder> {
-  static Serializer<ProgressRecord> get serializer =>
-      _$progressRecordSerializer;
+  // "progressReport" field.
+  String? _progressReport;
+  String get progressReport => _progressReport ?? '';
+  bool hasProgressReport() => _progressReport != null;
 
-  String? get progressReport;
-
-  BuiltList<String>? get progressReportList;
-
-  @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference? get ffRef;
-  DocumentReference get reference => ffRef!;
+  // "progressReportList" field.
+  List<String>? _progressReportList;
+  List<String> get progressReportList => _progressReportList ?? const [];
+  bool hasProgressReportList() => _progressReportList != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
-  static void _initializeBuilder(ProgressRecordBuilder builder) => builder
-    ..progressReport = ''
-    ..progressReportList = ListBuilder();
+  void _initializeFields() {
+    _progressReport = snapshotData['progressReport'] as String?;
+    _progressReportList = getDataList(snapshotData['progressReportList']);
+  }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
       parent != null
@@ -33,34 +39,44 @@ abstract class ProgressRecord
   static DocumentReference createDoc(DocumentReference parent) =>
       parent.collection('progress').doc();
 
-  static Stream<ProgressRecord> getDocument(DocumentReference ref) => ref
-      .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Stream<ProgressRecord> getDocument(DocumentReference ref) =>
+      ref.snapshots().map((s) => ProgressRecord.fromSnapshot(s));
 
-  static Future<ProgressRecord> getDocumentOnce(DocumentReference ref) => ref
-      .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
+  static Future<ProgressRecord> getDocumentOnce(DocumentReference ref) =>
+      ref.get().then((s) => ProgressRecord.fromSnapshot(s));
 
-  ProgressRecord._();
-  factory ProgressRecord([void Function(ProgressRecordBuilder) updates]) =
-      _$ProgressRecord;
+  static ProgressRecord fromSnapshot(DocumentSnapshot snapshot) =>
+      ProgressRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+      );
 
   static ProgressRecord getDocumentFromData(
-          Map<String, dynamic> data, DocumentReference reference) =>
-      serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
+    Map<String, dynamic> data,
+    DocumentReference reference,
+  ) =>
+      ProgressRecord._(reference, mapFromFirestore(data));
+
+  @override
+  String toString() =>
+      'ProgressRecord(reference: ${reference.path}, data: $snapshotData)';
+
+  @override
+  int get hashCode => reference.path.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      other is ProgressRecord &&
+      reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createProgressRecordData({
   String? progressReport,
 }) {
-  final firestoreData = serializers.toFirestore(
-    ProgressRecord.serializer,
-    ProgressRecord(
-      (p) => p
-        ..progressReport = progressReport
-        ..progressReportList = null,
-    ),
+  final firestoreData = mapToFirestore(
+    <String, dynamic>{
+      'progressReport': progressReport,
+    }.withoutNulls,
   );
 
   return firestoreData;
