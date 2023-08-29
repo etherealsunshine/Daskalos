@@ -1,22 +1,3 @@
 {
-  "indexes": [
-    {
-      "collectionGroup": "children",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "IsTeacher",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "code",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "disorder",
-          "order": "ASCENDING"
-        }
-      ]
-    }
-  ]
+  "indexes": []
 }

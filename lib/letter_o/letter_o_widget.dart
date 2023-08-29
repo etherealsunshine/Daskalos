@@ -47,7 +47,7 @@ class _LetterOWidgetState extends State<LetterOWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -66,7 +66,9 @@ class _LetterOWidgetState extends State<LetterOWidget> {
             },
           ),
           title: Text(
-            'Letter O',
+            FFLocalizations.of(context).getText(
+              'f0fdjzbe' /* Letter O */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -96,7 +98,9 @@ class _LetterOWidgetState extends State<LetterOWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -121,6 +125,22 @@ class _LetterOWidgetState extends State<LetterOWidget> {
                               name: swipeableStackLetterORecord.name,
                               imgLink: swipeableStackLetterORecord.imgLink,
                             ));
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Note'),
+                              content: Text('Added to Redo Page'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       onRightSwipe: (index) {},
                       onUpSwipe: (index) {},
@@ -144,7 +164,7 @@ class _LetterOWidgetState extends State<LetterOWidget> {
                                 swipeableStackLetterORecord.imgLink,
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

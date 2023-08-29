@@ -62,7 +62,9 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
             },
           ),
           title: Text(
-            'Vocabulary',
+            FFLocalizations.of(context).getText(
+              'i2qpvtan' /* Vocabulary */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -94,7 +96,9 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                             width: 50.0,
                             height: 50.0,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primary,
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).secondary,
+                              ),
                             ),
                           ),
                         );
@@ -128,7 +132,7 @@ class _CommunicationWidgetState extends State<CommunicationWidget> {
                                     listViewCommunicationRecord.imgLink,
                                     width: double.infinity,
                                     height: 150.0,
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.contain,
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(

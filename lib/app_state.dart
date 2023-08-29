@@ -23,6 +23,19 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _centrecode = prefs.getInt('ff_centrecode') ?? _centrecode;
     });
+    _safeInit(() {
+      _phoneno = prefs.getString('ff_phoneno') ?? _phoneno;
+    });
+    _safeInit(() {
+      _childprogresslocal =
+          prefs.getStringList('ff_childprogresslocal') ?? _childprogresslocal;
+    });
+    _safeInit(() {
+      _name = prefs.getString('ff_name') ?? _name;
+    });
+    _safeInit(() {
+      _email = prefs.getString('ff_email') ?? _email;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -39,12 +52,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setInt('ff_indexReport', _value);
   }
 
-  String _name = '';
-  String get name => _name;
-  set name(String _value) {
-    _name = _value;
-  }
-
   bool _IsATeacher = false;
   bool get IsATeacher => _IsATeacher;
   set IsATeacher(bool _value) {
@@ -57,6 +64,57 @@ class FFAppState extends ChangeNotifier {
   set centrecode(int _value) {
     _centrecode = _value;
     prefs.setInt('ff_centrecode', _value);
+  }
+
+  String _phoneno = '+91';
+  String get phoneno => _phoneno;
+  set phoneno(String _value) {
+    _phoneno = _value;
+    prefs.setString('ff_phoneno', _value);
+  }
+
+  List<String> _childprogresslocal = [];
+  List<String> get childprogresslocal => _childprogresslocal;
+  set childprogresslocal(List<String> _value) {
+    _childprogresslocal = _value;
+    prefs.setStringList('ff_childprogresslocal', _value);
+  }
+
+  void addToChildprogresslocal(String _value) {
+    _childprogresslocal.add(_value);
+    prefs.setStringList('ff_childprogresslocal', _childprogresslocal);
+  }
+
+  void removeFromChildprogresslocal(String _value) {
+    _childprogresslocal.remove(_value);
+    prefs.setStringList('ff_childprogresslocal', _childprogresslocal);
+  }
+
+  void removeAtIndexFromChildprogresslocal(int _index) {
+    _childprogresslocal.removeAt(_index);
+    prefs.setStringList('ff_childprogresslocal', _childprogresslocal);
+  }
+
+  void updateChildprogresslocalAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _childprogresslocal[_index] = updateFn(_childprogresslocal[_index]);
+    prefs.setStringList('ff_childprogresslocal', _childprogresslocal);
+  }
+
+  String _name = '';
+  String get name => _name;
+  set name(String _value) {
+    _name = _value;
+    prefs.setString('ff_name', _value);
+  }
+
+  String _email = '';
+  String get email => _email;
+  set email(String _value) {
+    _email = _value;
+    prefs.setString('ff_email', _value);
   }
 }
 

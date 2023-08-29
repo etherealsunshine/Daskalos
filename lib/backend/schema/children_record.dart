@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -185,4 +187,52 @@ Map<String, dynamic> createChildrenRecordData({
   );
 
   return firestoreData;
+}
+
+class ChildrenRecordDocumentEquality implements Equality<ChildrenRecord> {
+  const ChildrenRecordDocumentEquality();
+
+  @override
+  bool equals(ChildrenRecord? e1, ChildrenRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.name == e2?.name &&
+        e1?.age == e2?.age &&
+        e1?.disorder == e2?.disorder &&
+        e1?.progress == e2?.progress &&
+        e1?.therapiesundergoing == e2?.therapiesundergoing &&
+        e1?.photo == e2?.photo &&
+        e1?.parentName == e2?.parentName &&
+        e1?.contactNo == e2?.contactNo &&
+        e1?.counselorName == e2?.counselorName &&
+        e1?.isTeacher == e2?.isTeacher &&
+        listEquality.equals(e1?.childProgressInfo, e2?.childProgressInfo) &&
+        e1?.dob == e2?.dob &&
+        e1?.languagesUsedAtHome == e2?.languagesUsedAtHome &&
+        e1?.concern == e2?.concern &&
+        e1?.email == e2?.email &&
+        e1?.code == e2?.code;
+  }
+
+  @override
+  int hash(ChildrenRecord? e) => const ListEquality().hash([
+        e?.name,
+        e?.age,
+        e?.disorder,
+        e?.progress,
+        e?.therapiesundergoing,
+        e?.photo,
+        e?.parentName,
+        e?.contactNo,
+        e?.counselorName,
+        e?.isTeacher,
+        e?.childProgressInfo,
+        e?.dob,
+        e?.languagesUsedAtHome,
+        e?.concern,
+        e?.email,
+        e?.code
+      ]);
+
+  @override
+  bool isValidKey(Object? o) => o is ChildrenRecord;
 }

@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
       ..listen((user) => _appStateNotifier.update(user));
     jwtTokenStream.listen((_) {});
     Future.delayed(
-      Duration(seconds: 1),
+      Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
@@ -92,9 +92,16 @@ class _MyAppState extends State<MyApp> {
       locale: _locale,
       supportedLocales: const [
         Locale('en'),
+        Locale('hi'),
       ],
-      theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        scrollbarTheme: ScrollbarThemeData(),
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scrollbarTheme: ScrollbarThemeData(),
+      ),
       themeMode: _themeMode,
       routerConfig: _router,
     );
@@ -127,7 +134,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'HomePage': HomePageWidget(),
-      'Vocabulary': VocabularyWidget(),
+      'Activities': ActivitiesWidget(),
       'Settings': SettingsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -152,7 +159,9 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.home_outlined,
               size: 24.0,
             ),
-            label: 'Home',
+            label: FFLocalizations.of(context).getText(
+              'hlb5v0nl' /* Home */,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -160,7 +169,11 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.format_list_bulleted_rounded,
               size: 24.0,
             ),
-            label: 'Vocabulary',
+            label: FFLocalizations.of(context).getText(
+              'sx0jil45' /* Activities
+ */
+              ,
+            ),
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -168,7 +181,9 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.settings,
               size: 24.0,
             ),
-            label: 'Settings',
+            label: FFLocalizations.of(context).getText(
+              '2rgjmi1j' /* Settings */,
+            ),
             tooltip: '',
           )
         ],

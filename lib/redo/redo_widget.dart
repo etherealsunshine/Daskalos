@@ -45,7 +45,7 @@ class _RedoWidgetState extends State<RedoWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -64,7 +64,9 @@ class _RedoWidgetState extends State<RedoWidget> {
             },
           ),
           title: Text(
-            'Redo them!',
+            FFLocalizations.of(context).getText(
+              's9ftd012' /* Redo them! */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -91,7 +93,9 @@ class _RedoWidgetState extends State<RedoWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -107,7 +111,27 @@ class _RedoWidgetState extends State<RedoWidget> {
                       bottomCardWidthFraction: 0.8,
                       onSwipeFn: (index) {},
                       onLeftSwipe: (index) {},
-                      onRightSwipe: (index) {},
+                      onRightSwipe: (index) async {
+                        final swipeableStackMistakesRecord =
+                            swipeableStackMistakesRecordList[index];
+                        await swipeableStackMistakesRecord.reference.delete();
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Note'),
+                              content: Text('Removed from Redo!'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       onUpSwipe: (index) {},
                       onDownSwipe: (index) {},
                       itemBuilder: (context, swipeableStackIndex) {
@@ -129,7 +153,7 @@ class _RedoWidgetState extends State<RedoWidget> {
                                 swipeableStackMistakesRecord.imgLink,
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

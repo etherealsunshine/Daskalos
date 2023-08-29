@@ -1,3 +1,7 @@
+# DaskalosV1
 
-An App designed to empower parents and instructors of neurodivergent children through aa series of exercises and esl cards.
+A new Flutter project.
 
+## Getting Started
+
+FlutterFlow projects are built to run on the Flutter _stable_ release.

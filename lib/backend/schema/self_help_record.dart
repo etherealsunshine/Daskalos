@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -75,4 +77,19 @@ Map<String, dynamic> createSelfHelpRecordData({
   );
 
   return firestoreData;
+}
+
+class SelfHelpRecordDocumentEquality implements Equality<SelfHelpRecord> {
+  const SelfHelpRecordDocumentEquality();
+
+  @override
+  bool equals(SelfHelpRecord? e1, SelfHelpRecord? e2) {
+    return e1?.name == e2?.name && e1?.image == e2?.image;
+  }
+
+  @override
+  int hash(SelfHelpRecord? e) => const ListEquality().hash([e?.name, e?.image]);
+
+  @override
+  bool isValidKey(Object? o) => o is SelfHelpRecord;
 }

@@ -56,7 +56,9 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
                 width: 50.0,
                 height: 50.0,
                 child: CircularProgressIndicator(
-                  color: FlutterFlowTheme.of(context).primary,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    FlutterFlowTheme.of(context).secondary,
+                  ),
                 ),
               ),
             ),
@@ -92,7 +94,9 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
               },
             ),
             title: Text(
-              'Reviews',
+              FFLocalizations.of(context).getText(
+                'yx4p2cmc' /* Reviews */,
+              ),
               style: FlutterFlowTheme.of(context).titleMedium.override(
                     fontFamily: 'Poppins',
                     color: FlutterFlowTheme.of(context).secondaryText,
@@ -111,7 +115,9 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
                   padding:
                       EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
                   child: Text(
-                    'Previous Sessions',
+                    FFLocalizations.of(context).getText(
+                      'rsodxupz' /* Previous Sessions */,
+                    ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -121,23 +127,37 @@ class _UpdateChildProgressWidgetState extends State<UpdateChildProgressWidget> {
                 Padding(
                   padding:
                       EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
-                  child: Builder(
-                    builder: (context) {
-                      final progressData = updateChildProgressChildrenRecord!
-                          .childProgressInfo
-                          .toList()
-                          .take(5)
-                          .toList();
+                  child: StreamBuilder<List<ProgressRecord>>(
+                    stream: queryProgressRecord(),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                FlutterFlowTheme.of(context).secondary,
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                      List<ProgressRecord> listViewProgressRecordList =
+                          snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: progressData.length,
-                        itemBuilder: (context, progressDataIndex) {
-                          final progressDataItem =
-                              progressData[progressDataIndex];
+                        itemCount: listViewProgressRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewProgressRecord =
+                              listViewProgressRecordList[listViewIndex];
                           return Text(
-                            'Hello World',
+                            FFLocalizations.of(context).getText(
+                              'a94q5mh3' /* Hello World */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

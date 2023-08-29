@@ -44,12 +44,14 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: Color(0xFFB1B1B1),
           automaticallyImplyLeading: false,
           title: Text(
-            'Enter Pin Code Below',
+            FFLocalizations.of(context).getText(
+              'btddzcte' /* Verification */,
+            ),
             style: FlutterFlowTheme.of(context).bodyMedium,
           ),
           actions: [],
@@ -66,7 +68,9 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'Confirm your Code',
+                    FFLocalizations.of(context).getText(
+                      '6ua9zy5u' /* Confirm your Code */,
+                    ),
                     style: FlutterFlowTheme.of(context).headlineSmall.override(
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -76,7 +80,9 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                     padding:
                         EdgeInsetsDirectional.fromSTEB(44.0, 8.0, 44.0, 0.0),
                     child: Text(
-                      'This code helps keep your account safe and secure.',
+                      FFLocalizations.of(context).getText(
+                        'lhazb87p' /* This code helps keep your acco... */,
+                      ),
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodySmall,
                     ),
@@ -165,7 +171,9 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
                     },
                   );
                 },
-                text: 'Confirm & Continue',
+                text: FFLocalizations.of(context).getText(
+                  'arlh8vxe' /* Confirm & Continue */,
+                ),
                 options: FFButtonOptions(
                   width: 270.0,
                   height: 50.0,

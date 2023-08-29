@@ -66,7 +66,9 @@ class _LetterIWidgetState extends State<LetterIWidget> {
             },
           ),
           title: Text(
-            'Letter I',
+            FFLocalizations.of(context).getText(
+              'hy8jbxnq' /* Letter I */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -96,7 +98,9 @@ class _LetterIWidgetState extends State<LetterIWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -121,6 +125,22 @@ class _LetterIWidgetState extends State<LetterIWidget> {
                               name: swipeableStackLetterIRecord.name,
                               imgLink: swipeableStackLetterIRecord.imgLink,
                             ));
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Note'),
+                              content: Text('Added to Redo Page'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       onRightSwipe: (index) {},
                       onUpSwipe: (index) {},
@@ -144,7 +164,7 @@ class _LetterIWidgetState extends State<LetterIWidget> {
                                 swipeableStackLetterIRecord.imgLink,
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

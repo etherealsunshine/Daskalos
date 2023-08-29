@@ -3,15 +3,16 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:page_transition/page_transition.dart';
-import '../flutter_flow_theme.dart';
 import '/backend/backend.dart';
 
 import '../../auth/base_auth_user_provider.dart';
 
-import '../../index.dart';
-import '../../main.dart';
-import '../lat_lng.dart';
-import '../place.dart';
+import '/index.dart';
+import '/main.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/lat_lng.dart';
+import '/flutter_flow/place.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
 
 export 'package:go_router/go_router.dart';
@@ -77,20 +78,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? NavBarPage() : SignUpPageWidget(),
+          appStateNotifier.loggedIn ? NavBarPage() : EmailsignupWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? NavBarPage() : SignUpPageWidget(),
+              appStateNotifier.loggedIn ? NavBarPage() : EmailsignupWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
           builder: (context, params) => params.isEmpty
               ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(),
+              : HomePageWidget(
+                  code: params.getParam('code', ParamType.int),
+                ),
         ),
         FFRoute(
           name: 'SignUpPage',
@@ -105,14 +108,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ProfileIntroDataPage',
           path: '/profileIntroDataPage',
-          builder: (context, params) => ProfileIntroDataPageWidget(),
+          builder: (context, params) => ProfileIntroDataPageWidget(
+            email: params.getParam('email', ParamType.String),
+          ),
         ),
         FFRoute(
-          name: 'Vocabulary',
-          path: '/vocabulary',
+          name: 'Activities',
+          path: '/Activities',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'Vocabulary')
-              : VocabularyWidget(),
+              ? NavBarPage(initialPage: 'Activities')
+              : ActivitiesWidget(),
         ),
         FFRoute(
           name: 'ChildrenName',
@@ -129,6 +134,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             name: params.getParam('name', ParamType.String),
             childData: params.getParam('childData', ParamType.Document),
             disorder: params.getParam('disorder', ParamType.String),
+            progress:
+                params.getParam<String>('progress', ParamType.String, true),
+            progresslocalvar: params.getParam<String>(
+                'progresslocalvar', ParamType.String, true),
           ),
         ),
         FFRoute(
@@ -187,8 +196,49 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Redo',
           path: '/redo',
           builder: (context, params) => RedoWidget(),
+        ),
+        FFRoute(
+          name: 'classespage',
+          path: '/classespage',
+          builder: (context, params) => ClassespageWidget(),
+        ),
+        FFRoute(
+          name: 'emailsignup',
+          path: '/emailsignup',
+          builder: (context, params) => EmailsignupWidget(),
+        ),
+        FFRoute(
+          name: 'SigninPage',
+          path: '/signinPage',
+          builder: (context, params) => SigninPageWidget(),
+        ),
+        FFRoute(
+          name: 'resetpassword',
+          path: '/resetpassword',
+          builder: (context, params) => ResetpasswordWidget(),
+        ),
+        FFRoute(
+          name: 'instructororparent',
+          path: '/instructororparent',
+          builder: (context, params) => InstructororparentWidget(),
+        ),
+        FFRoute(
+          name: 'childprogressparent',
+          path: '/childprogressparent',
+          builder: (context, params) => ChildprogressparentWidget(),
+        ),
+        FFRoute(
+          name: 'MUSIC',
+          path: '/music',
+          builder: (context, params) => MusicWidget(),
+        ),
+        FFRoute(
+          name: 'InstructorSignUp',
+          path: '/instructorSignUp',
+          builder: (context, params) => InstructorSignUpWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
@@ -353,7 +403,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/signUpPage';
+            return '/emailsignup';
           }
           return null;
         },

@@ -45,7 +45,7 @@ class _LetterUWidgetState extends State<LetterUWidget> {
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryText,
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
@@ -64,7 +64,9 @@ class _LetterUWidgetState extends State<LetterUWidget> {
             },
           ),
           title: Text(
-            'Letter U',
+            FFLocalizations.of(context).getText(
+              'xjfntlvt' /* Letter U */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -94,7 +96,9 @@ class _LetterUWidgetState extends State<LetterUWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -132,7 +136,7 @@ class _LetterUWidgetState extends State<LetterUWidget> {
                                 'https://picsum.photos/seed/365/600',
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

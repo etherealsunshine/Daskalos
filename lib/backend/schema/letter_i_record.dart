@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -75,4 +77,20 @@ Map<String, dynamic> createLetterIRecordData({
   );
 
   return firestoreData;
+}
+
+class LetterIRecordDocumentEquality implements Equality<LetterIRecord> {
+  const LetterIRecordDocumentEquality();
+
+  @override
+  bool equals(LetterIRecord? e1, LetterIRecord? e2) {
+    return e1?.name == e2?.name && e1?.imgLink == e2?.imgLink;
+  }
+
+  @override
+  int hash(LetterIRecord? e) =>
+      const ListEquality().hash([e?.name, e?.imgLink]);
+
+  @override
+  bool isValidKey(Object? o) => o is LetterIRecord;
 }

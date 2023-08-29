@@ -58,7 +58,9 @@ class _NoDataGivenWidgetState extends State<NoDataGivenWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Seems like there are no updates',
+                FFLocalizations.of(context).getText(
+                  '5rchvjy7' /* Seems like there are no update... */,
+                ),
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).headlineSmall.override(
                       fontFamily: 'Poppins',
@@ -76,7 +78,9 @@ class _NoDataGivenWidgetState extends State<NoDataGivenWidget> {
             children: [
               Expanded(
                 child: Text(
-                  ' Once your childs instructor adds a review, they will appear here.',
+                  FFLocalizations.of(context).getText(
+                    '483m9pi1' /*  Once your childs instructor a... */,
+                  ),
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).bodySmall,
                 ),

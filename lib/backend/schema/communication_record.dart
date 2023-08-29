@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -75,4 +77,21 @@ Map<String, dynamic> createCommunicationRecordData({
   );
 
   return firestoreData;
+}
+
+class CommunicationRecordDocumentEquality
+    implements Equality<CommunicationRecord> {
+  const CommunicationRecordDocumentEquality();
+
+  @override
+  bool equals(CommunicationRecord? e1, CommunicationRecord? e2) {
+    return e1?.name == e2?.name && e1?.imgLink == e2?.imgLink;
+  }
+
+  @override
+  int hash(CommunicationRecord? e) =>
+      const ListEquality().hash([e?.name, e?.imgLink]);
+
+  @override
+  bool isValidKey(Object? o) => o is CommunicationRecord;
 }

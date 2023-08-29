@@ -5,7 +5,7 @@ export '/verification_page/verification_page_widget.dart'
     show VerificationPageWidget;
 export '/profile_intro_data_page/profile_intro_data_page_widget.dart'
     show ProfileIntroDataPageWidget;
-export '/vocabulary/vocabulary_widget.dart' show VocabularyWidget;
+export '/activities/activities_widget.dart' show ActivitiesWidget;
 export '/children_name/children_name_widget.dart' show ChildrenNameWidget;
 export '/child_info_page/child_info_page_widget.dart' show ChildInfoPageWidget;
 export '/letters_list/letters_list_widget.dart' show LettersListWidget;
@@ -20,3 +20,14 @@ export '/letter_u/letter_u_widget.dart' show LetterUWidget;
 export '/letter_i/letter_i_widget.dart' show LetterIWidget;
 export '/communication/communication_widget.dart' show CommunicationWidget;
 export '/redo/redo_widget.dart' show RedoWidget;
+export '/classespage/classespage_widget.dart' show ClassespageWidget;
+export '/emailsignup/emailsignup_widget.dart' show EmailsignupWidget;
+export '/signin_page/signin_page_widget.dart' show SigninPageWidget;
+export '/resetpassword/resetpassword_widget.dart' show ResetpasswordWidget;
+export '/instructororparent/instructororparent_widget.dart'
+    show InstructororparentWidget;
+export '/childprogressparent/childprogressparent_widget.dart'
+    show ChildprogressparentWidget;
+export '/music/music_widget.dart' show MusicWidget;
+export '/instructor_sign_up/instructor_sign_up_widget.dart'
+    show InstructorSignUpWidget;

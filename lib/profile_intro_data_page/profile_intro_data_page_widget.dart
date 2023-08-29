@@ -8,13 +8,19 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'profile_intro_data_page_model.dart';
 export 'profile_intro_data_page_model.dart';
 
 class ProfileIntroDataPageWidget extends StatefulWidget {
-  const ProfileIntroDataPageWidget({Key? key}) : super(key: key);
+  const ProfileIntroDataPageWidget({
+    Key? key,
+    this.email,
+  }) : super(key: key);
+
+  final String? email;
 
   @override
   _ProfileIntroDataPageWidgetState createState() =>
@@ -37,7 +43,7 @@ class _ProfileIntroDataPageWidgetState
     _model.textController3 ??= TextEditingController();
     _model.textController4 ??= TextEditingController();
     _model.concernController ??= TextEditingController();
-    _model.textController6 ??= TextEditingController();
+    _model.centreCodeController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -59,12 +65,15 @@ class _ProfileIntroDataPageWidgetState
         backgroundColor: FlutterFlowTheme.of(context).primary,
         automaticallyImplyLeading: false,
         title: Text(
-          'Details',
+          FFLocalizations.of(context).getText(
+            'r2m6d42q' /* Details */,
+          ),
           textAlign: TextAlign.center,
           style: FlutterFlowTheme.of(context).headlineMedium.override(
                 fontFamily: 'Poppins',
                 color: Colors.white,
                 fontSize: 22.0,
+                fontWeight: FontWeight.bold,
               ),
         ),
         actions: [],
@@ -74,7 +83,7 @@ class _ProfileIntroDataPageWidgetState
       body: SafeArea(
         top: true,
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(12.0, 20.0, 12.0, 12.0),
+          padding: EdgeInsetsDirectional.fromSTEB(12.0, 24.0, 12.0, 12.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -86,11 +95,24 @@ class _ProfileIntroDataPageWidgetState
                       EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                   child: TextFormField(
                     controller: _model.yourNameController,
+                    autofillHints: [AutofillHints.name],
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: 'Your Name',
-                      labelStyle: FlutterFlowTheme.of(context).bodySmall,
-                      hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                      labelText: FFLocalizations.of(context).getText(
+                        'd7k362eo' /* Child's name */,
+                      ),
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -120,7 +142,7 @@ class _ProfileIntroDataPageWidgetState
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).primaryText,
+                      fillColor: FlutterFlowTheme.of(context).primaryBtnText,
                       contentPadding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
                     ),
@@ -138,48 +160,58 @@ class _ProfileIntroDataPageWidgetState
                       EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                   child: TextFormField(
                     controller: _model.cityController,
+                    autofillHints: [AutofillHints.email],
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelText: 'Age',
-                      labelStyle: FlutterFlowTheme.of(context).bodySmall,
-                      hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                      labelText: FFLocalizations.of(context).getText(
+                        'poi47u62' /* Age */,
+                      ),
+                      labelStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).secondaryText,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.circular(0.0),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).primaryText,
+                      fillColor: FlutterFlowTheme.of(context).btnText,
                       contentPadding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
                     ),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Poppins',
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                        ),
+                    style: FlutterFlowTheme.of(context).bodySmall,
                     maxLines: null,
                     validator:
                         _model.cityControllerValidator.asValidator(context),
@@ -193,16 +225,33 @@ class _ProfileIntroDataPageWidgetState
                     child: FlutterFlowDropDown<String>(
                       controller: _model.dropDownValueController ??=
                           FormFieldController<String>(
-                        _model.dropDownValue ??= 'Disorder',
+                        _model.dropDownValue ??=
+                            FFLocalizations.of(context).getText(
+                          'jutqfyfc' /* Disorder */,
+                        ),
                       ),
                       options: [
-                        'Autism',
-                        'ADHD',
-                        'Dyslexia',
-                        'Down Syndrome',
-                        'Cerebral Palsy',
-                        'Disorder',
-                        'Not Diagnosed'
+                        FFLocalizations.of(context).getText(
+                          'pq18rr5l' /* Autism */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '0dsgms6v' /* ADHD */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '3ahiexbg' /* Dyslexia */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '0wjkyso2' /* Down Syndrome */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'h3qx1vjd' /* Cerebral Palsy */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          '2k4d6i5c' /* Disorder */,
+                        ),
+                        FFLocalizations.of(context).getText(
+                          'ntgcxqe6' /* Not Diagnosed */,
+                        )
                       ],
                       onChanged: (val) =>
                           setState(() => _model.dropDownValue = val),
@@ -214,7 +263,9 @@ class _ProfileIntroDataPageWidgetState
                             fontFamily: 'Poppins',
                             color: FlutterFlowTheme.of(context).secondaryText,
                           ),
-                      hintText: 'Disorder',
+                      hintText: FFLocalizations.of(context).getText(
+                        'jtykscaz' /* Disorder */,
+                      ),
                       fillColor: Colors.white,
                       elevation: 2.0,
                       borderColor: FlutterFlowTheme.of(context).secondaryText,
@@ -224,6 +275,7 @@ class _ProfileIntroDataPageWidgetState
                           EdgeInsetsDirectional.fromSTEB(12.0, 4.0, 12.0, 4.0),
                       hidesUnderline: true,
                       isSearchable: false,
+                      isMultiSelect: false,
                     ),
                   ),
                 ),
@@ -232,63 +284,50 @@ class _ProfileIntroDataPageWidgetState
                       EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 20.0, 16.0),
                   child: TextFormField(
                     controller: _model.textController3,
-                    autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      hintText: 'Parent Name',
-                      hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                      hintText: FFLocalizations.of(context).getText(
+                        '2saacr5m' /* Parent Name */,
+                      ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).secondaryText,
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(2.0),
-                          topRight: Radius.circular(0.0),
-                        ),
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(2.0),
-                          topRight: Radius.circular(0.0),
-                        ),
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                       errorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(2.0),
-                          topRight: Radius.circular(0.0),
-                        ),
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                       focusedErrorBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Color(0x00000000),
                           width: 2.0,
                         ),
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(0.0),
-                          bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(2.0),
-                          topRight: Radius.circular(0.0),
-                        ),
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                     ),
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Poppins',
                           color: FlutterFlowTheme.of(context).secondaryText,
+                          fontWeight: FontWeight.w500,
                         ),
                     validator:
                         _model.textController3Validator.asValidator(context),
@@ -299,11 +338,17 @@ class _ProfileIntroDataPageWidgetState
                       EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 16.0),
                   child: TextFormField(
                     controller: _model.textController4,
-                    autofocus: true,
                     obscureText: false,
                     decoration: InputDecoration(
-                      hintText: 'Contact No',
-                      hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                      hintText: FFLocalizations.of(context).getText(
+                        'ceu6agp1' /* Contact No */,
+                      ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -360,9 +405,16 @@ class _ProfileIntroDataPageWidgetState
                     controller: _model.concernController,
                     obscureText: false,
                     decoration: InputDecoration(
-                      labelStyle: FlutterFlowTheme.of(context).bodySmall,
-                      hintText: 'Enter your concern',
-                      hintStyle: FlutterFlowTheme.of(context).bodySmall,
+                      labelStyle: FlutterFlowTheme.of(context).titleSmall,
+                      hintText: FFLocalizations.of(context).getText(
+                        'ywradask' /* Enter your concern */,
+                      ),
+                      hintStyle:
+                          FlutterFlowTheme.of(context).bodySmall.override(
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500,
+                              ),
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).secondaryText,
@@ -392,7 +444,7 @@ class _ProfileIntroDataPageWidgetState
                         borderRadius: BorderRadius.circular(0.0),
                       ),
                       filled: true,
-                      fillColor: FlutterFlowTheme.of(context).primaryText,
+                      fillColor: FlutterFlowTheme.of(context).primaryBtnText,
                       contentPadding:
                           EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 0.0, 24.0),
                     ),
@@ -426,13 +478,16 @@ class _ProfileIntroDataPageWidgetState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Date of Birth',
+                            FFLocalizations.of(context).getText(
+                              'sql7o7v6' /* Date of Birth */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Poppins',
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                           Padding(
@@ -457,7 +512,9 @@ class _ProfileIntroDataPageWidgetState
                                   });
                                 }
                               },
-                              text: 'Pick',
+                              text: FFLocalizations.of(context).getText(
+                                '5jvdpnlu' /* Pick */,
+                              ),
                               options: FFButtonOptions(
                                 width: 60.0,
                                 height: 50.0,
@@ -490,7 +547,7 @@ class _ProfileIntroDataPageWidgetState
                   padding:
                       EdgeInsetsDirectional.fromSTEB(20.0, 12.0, 12.0, 11.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: MediaQuery.sizeOf(context).width * 0.9,
                     height: 70.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).overlay0,
@@ -508,13 +565,16 @@ class _ProfileIntroDataPageWidgetState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Are you an Instructor?',
+                            FFLocalizations.of(context).getText(
+                              '14s898wr' /* Are you an Instructor? */,
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Poppins',
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                           Theme(
@@ -542,7 +602,7 @@ class _ProfileIntroDataPageWidgetState
                 ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 16.0, 16.0),
+                      EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 12.0, 16.0),
                   child: Container(
                     width: double.infinity,
                     height: 70.0,
@@ -554,55 +614,76 @@ class _ProfileIntroDataPageWidgetState
                         width: 2.0,
                       ),
                     ),
-                    child: Form(
-                      key: _model.formKey,
-                      autovalidateMode: AutovalidateMode.always,
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                        child: TextFormField(
-                          controller: _model.textController6,
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Centre Code',
-                            labelStyle: FlutterFlowTheme.of(context).titleSmall,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).primary,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.of(context).error,
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                      child: TextFormField(
+                        controller: _model.centreCodeController,
+                        textCapitalization: TextCapitalization.none,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: FFLocalizations.of(context).getText(
+                            'i3o3jhj6' /* Enter Centre code */,
                           ),
-                          style: FlutterFlowTheme.of(context).bodySmall,
-                          validator: _model.textController6Validator
-                              .asValidator(context),
+                          labelStyle: FlutterFlowTheme.of(context).titleSmall,
+                          hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          focusedErrorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                              width: 2.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                         ),
+                        style: FlutterFlowTheme.of(context)
+                            .displayLarge
+                            .override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 14.0,
+                            ),
+                        keyboardType: TextInputType.number,
+                        validator: _model.centreCodeControllerValidator
+                            .asValidator(context),
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+                        ],
                       ),
                     ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
+                  child: Text(
+                    FFLocalizations.of(context).getText(
+                      '0avz42je' /* Click for Instructor SignUp  */,
+                    ),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).secondary,
+                          fontSize: 18.0,
+                        ),
                   ),
                 ),
                 Align(
@@ -623,17 +704,29 @@ class _ProfileIntroDataPageWidgetState
                               isTeacher: _model.checkboxValue,
                               concern: _model.concernController.text,
                               dob: _model.datePicked,
-                              code: int.tryParse(_model.textController6.text),
+                              code: int.tryParse(
+                                  _model.centreCodeController.text),
+                              email: widget.email,
                             ));
-                        setState(() {
-                          FFAppState().name = _model.yourNameController.text;
-                          FFAppState().IsATeacher = _model.checkboxValue!;
+                        FFAppState().name = _model.yourNameController.text;
+                        FFAppState().IsATeacher = _model.checkboxValue!;
+                        FFAppState().email = '';
+                        if (_model.centreCodeController.text != null &&
+                            _model.centreCodeController.text != '') {
                           FFAppState().centrecode =
-                              int.parse(_model.textController6.text);
-                        });
+                              int.parse(_model.centreCodeController.text);
+                        } else {
+                          FFAppState().centrecode = 0;
+                        }
 
                         context.pushNamed(
                           'HomePage',
+                          queryParameters: {
+                            'code': serializeParam(
+                              int.tryParse(_model.centreCodeController.text),
+                              ParamType.int,
+                            ),
+                          }.withoutNulls,
                           extra: <String, dynamic>{
                             kTransitionInfoKey: TransitionInfo(
                               hasTransition: true,
@@ -642,7 +735,9 @@ class _ProfileIntroDataPageWidgetState
                           },
                         );
                       },
-                      text: 'Save Changes',
+                      text: FFLocalizations.of(context).getText(
+                        'od1ykns0' /* Save Changes */,
+                      ),
                       options: FFButtonOptions(
                         width: 270.0,
                         height: 50.0,

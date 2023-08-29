@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
+
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
 
@@ -80,4 +82,22 @@ Map<String, dynamic> createProgressRecordData({
   );
 
   return firestoreData;
+}
+
+class ProgressRecordDocumentEquality implements Equality<ProgressRecord> {
+  const ProgressRecordDocumentEquality();
+
+  @override
+  bool equals(ProgressRecord? e1, ProgressRecord? e2) {
+    const listEquality = ListEquality();
+    return e1?.progressReport == e2?.progressReport &&
+        listEquality.equals(e1?.progressReportList, e2?.progressReportList);
+  }
+
+  @override
+  int hash(ProgressRecord? e) =>
+      const ListEquality().hash([e?.progressReport, e?.progressReportList]);
+
+  @override
+  bool isValidKey(Object? o) => o is ProgressRecord;
 }

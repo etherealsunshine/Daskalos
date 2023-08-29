@@ -66,7 +66,9 @@ class _VocabAWidgetState extends State<VocabAWidget> {
             },
           ),
           title: Text(
-            'Letter A',
+            FFLocalizations.of(context).getText(
+              'tc3frk4m' /* Letter A */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -96,7 +98,9 @@ class _VocabAWidgetState extends State<VocabAWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -121,6 +125,22 @@ class _VocabAWidgetState extends State<VocabAWidget> {
                               name: swipeableStackLetterARecord.name,
                               imgLink: swipeableStackLetterARecord.link,
                             ));
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('Note'),
+                              content: Text('Added to Redo Page'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       onRightSwipe: (index) {},
                       onUpSwipe: (index) {},
@@ -144,7 +164,7 @@ class _VocabAWidgetState extends State<VocabAWidget> {
                                 swipeableStackLetterARecord.link,
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

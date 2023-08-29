@@ -66,7 +66,9 @@ class _VocabEWidgetState extends State<VocabEWidget> {
             },
           ),
           title: Text(
-            'Letter E',
+            FFLocalizations.of(context).getText(
+              'w7if0jbb' /* Letter E */,
+            ),
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Poppins',
                   color: Colors.white,
@@ -96,7 +98,9 @@ class _VocabEWidgetState extends State<VocabEWidget> {
                           width: 50.0,
                           height: 50.0,
                           child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primary,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              FlutterFlowTheme.of(context).secondary,
+                            ),
                           ),
                         ),
                       );
@@ -144,7 +148,7 @@ class _VocabEWidgetState extends State<VocabEWidget> {
                                 swipeableStackLetterERecord.imgLink,
                                 width: double.infinity,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.55,
+                                    MediaQuery.sizeOf(context).height * 0.55,
                                 fit: BoxFit.cover,
                               ),
                               Padding(

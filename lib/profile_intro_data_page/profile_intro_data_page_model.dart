@@ -8,13 +8,13 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ProfileIntroDataPageModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
-  final formKey = GlobalKey<FormState>();
   // State field(s) for yourName widget.
   TextEditingController? yourNameController;
   String? Function(BuildContext, String?)? yourNameControllerValidator;
@@ -36,25 +36,13 @@ class ProfileIntroDataPageModel extends FlutterFlowModel {
   DateTime? datePicked;
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
-  // State field(s) for TextField widget.
-  TextEditingController? textController6;
-  String? Function(BuildContext, String?)? textController6Validator;
-  String? _textController6Validator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
-
-    if (!RegExp('^[0-9]*\$').hasMatch(val)) {
-      return 'Please Enter a Valid Code';
-    }
-    return null;
-  }
+  // State field(s) for CentreCode widget.
+  TextEditingController? centreCodeController;
+  String? Function(BuildContext, String?)? centreCodeControllerValidator;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    textController6Validator = _textController6Validator;
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
     yourNameController?.dispose();
@@ -62,7 +50,7 @@ class ProfileIntroDataPageModel extends FlutterFlowModel {
     textController3?.dispose();
     textController4?.dispose();
     concernController?.dispose();
-    textController6?.dispose();
+    centreCodeController?.dispose();
   }
 
   /// Action blocks are added here.
